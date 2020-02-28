@@ -28,7 +28,14 @@ $this->params['breadcrumbs'][] = $this->title;
             '_id',
             'title',
             'bio',
-            'avatar_url',
+            [
+                'label' => 'Avatar',
+                'attribute' => 'avatar_url',
+                'format' => 'raw',
+                'value' => function ($data) {
+                    return Html::img($data->avatar_url, ['width' => '200']);
+                },
+            ],
             'email',
             'password_hash',
             'auth_token',
