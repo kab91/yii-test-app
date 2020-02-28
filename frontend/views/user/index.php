@@ -29,7 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             'bio',
             'avatar_url',
-
+            'email',
+            'password_hash',
+            'auth_token',
             [
                 'class' => 'yii\grid\ActionColumn',
                 'visibleButtons' => [
