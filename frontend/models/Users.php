@@ -41,12 +41,22 @@ class Users extends \yii\mongodb\ActiveRecord
         ];
     }
 
+    public function fields()
+    {
+        $fields = parent::fields();
+
+        unset($fields['auth_token'], $fields['email'], $fields['password_hash']);
+
+        return $fields;
+    }
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
+            [['title'], 'string', 'max' => 200],
             [['title', 'bio', 'avatar_url', 'email', 'password_hash', 'auth_token'], 'safe']
         ];
     }

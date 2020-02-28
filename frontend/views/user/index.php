@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\UsersSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -19,20 +20,25 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             '_id',
             'title',
             'bio',
             'avatar_url',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'visibleButtons' => [
+
+                    'delete' => function ($model) {
+                        return Yii::$app->user->identity->isAdmin();
+                    },
+                ]
+            ],
         ],
     ]); ?>
 
